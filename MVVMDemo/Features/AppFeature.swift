@@ -25,24 +25,16 @@ final class AppModel {
     }
     
     func task() async {
-        await withTaskGroup(of: Void.self) { taskGroup in
-             taskGroup.addTask {
-                 for await _ in await AsyncStream(self.$user.publisher.values) {
-                     await self.navigate()
-                 }
-            }
+        for await _ in await AsyncStream(self.$user.publisher.values) {
+            self.destination = {
+                switch user {
+                case .some:
+                    return .main(MainModel())
+                case .none:
+                    return .authentication(AuthenticationModel())
+                }
+            }()
         }
-    }
-    
-    private func navigate() {
-        self.destination = {
-            switch user {
-            case .some:
-                return .main(MainModel())
-            case .none:
-                return .authentication(AuthenticationModel())
-            }
-        }()
     }
 }
 
