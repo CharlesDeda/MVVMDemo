@@ -1,35 +1,23 @@
-//
-//  AuthenticationFeature.swift
-//  MVVMDemo
-//
-//  Created by Nick Deda on 2/11/25.
-//
-
 import SwiftUI
 import Sharing
+import Dependencies
 
 @Observable
 final class AuthenticationModel {
-    var onLogin: (User) -> Void
-    
-    init(onLogin: @escaping (User) -> Void) {
-        self.onLogin = onLogin
-    }
-    
+    @ObservationIgnored @Shared(.user) var user
+    @ObservationIgnored @Dependency(\.api) var api
+
     func loginButtonTapped() {
         Task {
             let result = await Result {
-                try await fetchCurrentUser()
+                try await self.api.login()
             }
             if case let .success(value) = result {
-                self.onLogin(value)
+                $user.withLock {
+                    $0 = value
+                }
             }
         }
-        
-    }
-    
-    private func fetchCurrentUser() async throws -> User {
-        return User(id: UUID(), fullName: "NickDeda")
     }
 }
 
@@ -44,5 +32,5 @@ struct AuthenticationView: View {
 }
 
 #Preview {
-    AuthenticationView(model: AuthenticationModel(onLogin: { _ in }))
+//    AuthenticationView(model: AuthenticationModel(onLogin: { _ in }))
 }
