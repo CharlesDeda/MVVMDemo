@@ -6,22 +6,16 @@
 //
 
 import SwiftUI
+import Sharing
 
 @Observable
 final class MainModel {
-    var user: User
-    var onLogout: () -> Void
-    
-    init(
-        user: User,
-        onLogout: @escaping () -> Void
-    ) {
-        self.user = user
-        self.onLogout = onLogout
-    }
+    @ObservationIgnored @Shared(.user) var user
     
     func logoutButtonTapped()  {
-        self.onLogout()
+        $user.withLock {
+            $0 = .none
+        }
     }
 }
 
@@ -29,7 +23,7 @@ struct MainView: View {
     @Bindable var model: MainModel
     
     var body: some View {
-        Text(model.user.fullName)
+        Text(model.user?.fullName ?? "")
         
         Button("Logout") {
             model.logoutButtonTapped()
@@ -38,5 +32,5 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView(model: MainModel(user: User(id: UUID(), fullName: "KodyDeda"), onLogout: {}))
+//    MainView(model: MainModel(user: User(id: UUID(), fullName: "KodyDeda")))
 }

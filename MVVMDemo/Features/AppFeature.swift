@@ -1,6 +1,8 @@
 import SwiftUI
 import Dependencies
 import Sharing
+import Combine
+import SwiftUINavigation
 
 /*
  Packages
@@ -10,44 +12,38 @@ import Sharing
  https://github.com/pointfreeco/swift-navigation
  */
 
-enum Destination {
-    case authentication
-    case main(User)
-}
-
 @MainActor
 @Observable
 final class AppModel {
-    var user: User?
     var destination: Destination? = nil
+    @ObservationIgnored @Shared(.user) var user
+    
+    @CasePathable
+    enum Destination {
+        case authentication(AuthenticationModel)
+        case main(MainModel)
+    }
     
     func task() async {
-        let result = await Result {
-            try await fetchCurrentUser()
+        await withTaskGroup(of: Void.self) { taskGroup in
+             taskGroup.addTask {
+                 for await _ in await AsyncStream(self.$user.publisher.values) {
+                     await self.navigate()
+                 }
+            }
         }
-        
+    }
+    
+    private func navigate() {
         self.destination = {
-            switch result {
-            case let .success(value):
-                return .main(value)
-            case .failure:
-                return .authentication
+            switch user {
+            case .some:
+                return .main(MainModel())
+            case .none:
+                return .authentication(AuthenticationModel())
             }
         }()
     }
-        
-    private func fetchCurrentUser() async throws -> User {
-        return User(id: UUID(), fullName: "NickDeda")
-    }
-    
-    func onLogout() {
-        self.destination = .authentication
-    }
-    
-    func onLogin(user: User) {
-        self.destination = .main(user)
-    }
-    
 }
 
 struct AppView: View {
@@ -56,14 +52,10 @@ struct AppView: View {
     var body: some View {
         Group {
             switch model.destination {
-            case .authentication:
-                AuthenticationView(model: AuthenticationModel(onLogin: { user in
-                    self.model.onLogin(user: user)
-                }))
-            case let .main(user):
-                MainView(model: MainModel(user: user, onLogout: {
-                    self.model.onLogout()
-                }))
+            case let .authentication(model):
+                AuthenticationView(model: model)
+            case let .main(model):
+                MainView(model: model)
             case nil:
                 ProgressView()
             }

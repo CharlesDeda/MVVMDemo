@@ -10,19 +10,17 @@ import Sharing
 
 @Observable
 final class AuthenticationModel {
-    var onLogin: (User) -> Void
-    
-    init(onLogin: @escaping (User) -> Void) {
-        self.onLogin = onLogin
-    }
-    
+    @ObservationIgnored @Shared(.user) var user
+
     func loginButtonTapped() {
         Task {
             let result = await Result {
                 try await fetchCurrentUser()
             }
             if case let .success(value) = result {
-                self.onLogin(value)
+                $user.withLock {
+                    $0 = value
+                }
             }
         }
         
@@ -44,5 +42,5 @@ struct AuthenticationView: View {
 }
 
 #Preview {
-    AuthenticationView(model: AuthenticationModel(onLogin: { _ in }))
+//    AuthenticationView(model: AuthenticationModel(onLogin: { _ in }))
 }
