@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F9F3F0FE2D5BA86000948BC0 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = F9F3F0FD2D5BA86000948BC0 /* SwiftUINavigation */; };
+		F9F3F1002D5BA86000948BC0 /* SwiftUINavigationCore in Frameworks */ = {isa = PBXBuildFile; productRef = F9F3F0FF2D5BA86000948BC0 /* SwiftUINavigationCore */; };
+		F9F3F1032D5BA89B00948BC0 /* Sharing in Frameworks */ = {isa = PBXBuildFile; productRef = F9F3F1022D5BA89B00948BC0 /* Sharing */; };
+		F9F3F17B2D5BAEC700948BC0 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = F9F3F17A2D5BAEC700948BC0 /* Dependencies */; };
+		F9F3F17D2D5BAEC700948BC0 /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = F9F3F17C2D5BAEC700948BC0 /* DependenciesMacros */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F9F3F0E02D5BA7E400948BC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -40,11 +48,6 @@
 			path = MVVMDemoTests;
 			sourceTree = "<group>";
 		};
-		F9F3F0EC2D5BA7E400948BC0 /* MVVMDemoUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MVVMDemoUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +55,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9F3F1032D5BA89B00948BC0 /* Sharing in Frameworks */,
+				F9F3F0FE2D5BA86000948BC0 /* SwiftUINavigation in Frameworks */,
+				F9F3F17D2D5BAEC700948BC0 /* DependenciesMacros in Frameworks */,
+				F9F3F1002D5BA86000948BC0 /* SwiftUINavigationCore in Frameworks */,
+				F9F3F17B2D5BAEC700948BC0 /* Dependencies in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +85,6 @@
 			children = (
 				F9F3F0D12D5BA7E000948BC0 /* MVVMDemo */,
 				F9F3F0E22D5BA7E400948BC0 /* MVVMDemoTests */,
-				F9F3F0EC2D5BA7E400948BC0 /* MVVMDemoUITests */,
 				F9F3F0D02D5BA7E000948BC0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +119,11 @@
 			);
 			name = MVVMDemo;
 			packageProductDependencies = (
+				F9F3F0FD2D5BA86000948BC0 /* SwiftUINavigation */,
+				F9F3F0FF2D5BA86000948BC0 /* SwiftUINavigationCore */,
+				F9F3F1022D5BA89B00948BC0 /* Sharing */,
+				F9F3F17A2D5BAEC700948BC0 /* Dependencies */,
+				F9F3F17C2D5BAEC700948BC0 /* DependenciesMacros */,
 			);
 			productName = MVVMDemo;
 			productReference = F9F3F0CF2D5BA7E000948BC0 /* MVVMDemo.app */;
@@ -153,9 +165,6 @@
 			dependencies = (
 				F9F3F0EB2D5BA7E400948BC0 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				F9F3F0EC2D5BA7E400948BC0 /* MVVMDemoUITests */,
-			);
 			name = MVVMDemoUITests;
 			packageProductDependencies = (
 			);
@@ -195,6 +204,11 @@
 			);
 			mainGroup = F9F3F0C62D5BA7E000948BC0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F9F3F0FC2D5BA86000948BC0 /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
+				F9F3F1012D5BA89B00948BC0 /* XCRemoteSwiftPackageReference "swift-sharing" */,
+				F9F3F1792D5BAEC700948BC0 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F9F3F0D02D5BA7E000948BC0 /* Products */;
 			projectDirPath = "";
@@ -558,6 +572,61 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F9F3F0FC2D5BA86000948BC0 /* XCRemoteSwiftPackageReference "swiftui-navigation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swiftui-navigation.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.5.5;
+			};
+		};
+		F9F3F1012D5BA89B00948BC0 /* XCRemoteSwiftPackageReference "swift-sharing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-sharing";
+			requirement = {
+				kind = exactVersion;
+				version = 2.2.0;
+			};
+		};
+		F9F3F1792D5BAEC700948BC0 /* XCRemoteSwiftPackageReference "swift-dependencies" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-dependencies";
+			requirement = {
+				kind = exactVersion;
+				version = 1.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F9F3F0FD2D5BA86000948BC0 /* SwiftUINavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9F3F0FC2D5BA86000948BC0 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
+			productName = SwiftUINavigation;
+		};
+		F9F3F0FF2D5BA86000948BC0 /* SwiftUINavigationCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9F3F0FC2D5BA86000948BC0 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
+			productName = SwiftUINavigationCore;
+		};
+		F9F3F1022D5BA89B00948BC0 /* Sharing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9F3F1012D5BA89B00948BC0 /* XCRemoteSwiftPackageReference "swift-sharing" */;
+			productName = Sharing;
+		};
+		F9F3F17A2D5BAEC700948BC0 /* Dependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9F3F1792D5BAEC700948BC0 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = Dependencies;
+		};
+		F9F3F17C2D5BAEC700948BC0 /* DependenciesMacros */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9F3F1792D5BAEC700948BC0 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = DependenciesMacros;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F9F3F0C72D5BA7E000948BC0 /* Project object */;
 }
