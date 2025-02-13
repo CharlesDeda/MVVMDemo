@@ -5,11 +5,11 @@ import Dependencies
 @Observable
 final class RevenueModel {
     @ObservationIgnored @Shared(.signup) var signup
+    var isSelected: Bool = false
 }
 
-struct RevenueFeature: View {
+struct RevenueView: View {
     @Bindable var model: RevenueModel
-    @State var isSelected: Bool = false
     
     var body: some View {
         ZStack {
@@ -25,7 +25,7 @@ struct RevenueFeature: View {
                     .padding(.top, 40)
                 
                 Button(action: {
-                    isSelected = true
+                    model.isSelected = true
                 }) {
                     HStack {
                         Text("$2.99")
@@ -46,7 +46,7 @@ struct RevenueFeature: View {
                 }
                 
                 Button(action: {
-                    isSelected = true
+                    model.isSelected = true
                 }) {
                     Text("$14.99")
                         .foregroundColor(.white)
@@ -66,7 +66,7 @@ struct RevenueFeature: View {
                 
                 
                 Button(action: {
-                    isSelected = true
+                    model.isSelected = true
                 }) {
                     Text("$24.99")
                         .foregroundColor(.white)
@@ -86,7 +86,7 @@ struct RevenueFeature: View {
                 
                 
                 Button(action: {
-                    isSelected = true
+                    model.isSelected = true
                 }) {
                     Text("1 week free trial")
                         .foregroundColor(.white)
@@ -106,13 +106,12 @@ struct RevenueFeature: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: 175, maxHeight: 15)
                         .padding()
-                        .background(isSelected ? Color(.gray) : Color(red: 20/255, green: 20/255, blue: 20/255))
+                        .background(model.isSelected ? Color(red: 20/255, green: 20/255, blue: 20/255) : Color(.gray))
                         
                         .cornerRadius(8)
                 }
                 
-                (Text("Subscription ")
-                 + Text("terms").underline()
+                (Text("Terms").underline()
                  + Text(" of service"))
                 .foregroundColor(.white)
                 .bold()
@@ -123,5 +122,5 @@ struct RevenueFeature: View {
 }
 
 #Preview {
-    RevenueFeature(model: RevenueModel())
+    RevenueView(model: RevenueModel())
 }

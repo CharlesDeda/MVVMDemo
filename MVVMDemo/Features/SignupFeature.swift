@@ -2,7 +2,17 @@ import SwiftUI
 import Sharing
 import Dependencies
 
-struct SignupFeature: View {
+@Observable
+final class SignupModel {
+    @ObservationIgnored @Shared(.signup) var signup
+    var username = ""
+    var email = ""
+    var alertIsPresented = false
+    
+}
+
+struct SignupView: View {
+    @Environment(\.dismiss) private var dismiss
     @Bindable var model: SignupModel
     
     var body: some View {
@@ -23,7 +33,7 @@ struct SignupFeature: View {
                 Spacer().frame(height: 60)
                 
                 Button(action: {
-                    
+                    model.alertIsPresented = true
                 }) {
                     Text("Next")
                         .bold()
@@ -35,18 +45,17 @@ struct SignupFeature: View {
                 }
                 Spacer()
             }
+            .alert("Are you sure you want to continue with this information?", isPresented: $model.alertIsPresented) {
+                Button("Cancel", role: .cancel) { }
+                Button("Continue") {
+                    dismiss()
+                }
+            }
         }
     }
 }
 
 
-@Observable
-final class SignupModel {
-    @ObservationIgnored @Shared(.signup) var signup
-    var username = ""
-    var email = ""
-}
-
 #Preview {
-    SignupFeature(model: SignupModel())
+    SignupView(model: SignupModel())
 }

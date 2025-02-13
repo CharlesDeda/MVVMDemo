@@ -14,16 +14,14 @@ struct ApiClient {
     var login: (_ email: String, _ pin: String) async throws -> User
     
     /**
-     Create a local user or structure with the bits that are required for this user to exist.
-     This user will eventually reside in our server somewhere
-     Return true if it worked.
+     Create a user upon signup.
+     This user will eventually reside in the server
+     Return true upon success
      
-     Here you might want to validate this info, say the guy signing up is the one he claims.
-     And you might send him an email to make sure these are not drones.
-     But at some point they are signed
+     Validate
+     Possible email confirmation
      After which they can login and use the app
      */
-    // TODO: where is the real server api for this ?
     var signup: (_ signupInfo: SignUp) async throws -> Bool
     
     struct User: Codable, Equatable, Identifiable {
@@ -36,6 +34,9 @@ struct ApiClient {
     enum SubscriptionType: Codable, Equatable {
         case unknown
         case oneWeekTrial(created: Date)
+        case oneMonthSubscription(created: Date)
+        case sixMonthSubscription(created: Date)
+        case oneYearSubscription(created: Date)
     }
 
     struct SignUp: Codable, Equatable {

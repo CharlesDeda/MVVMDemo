@@ -17,14 +17,20 @@ struct MainView: View {
     @Bindable var model: MainModel
     
     var body: some View {
-        Text(model.user?.fullName ?? "")
-        
-        Button("Logout") {
-            model.logoutButtonTapped()
+        ZStack {
+            Color(red: 30/255, green: 30/255, blue: 30/255)
+                .ignoresSafeArea()
+            VStack {
+                Text(model.user?.fullName ?? "")
+                
+                Button("Logout") {
+                    model.logoutButtonTapped()
+                }
+            }
         }
     }
 }
 
 #Preview {
-//    MainView(model: MainModel(user: User(id: UUID(), fullName: "KodyDeda")))
+    MainView(model: MainModel())
 }

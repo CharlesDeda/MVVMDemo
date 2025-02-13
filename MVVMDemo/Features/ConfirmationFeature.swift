@@ -2,7 +2,7 @@ import SwiftUI
 import Sharing
 import Dependencies
 
-struct ConfirmationFeature: View {
+struct ConfirmationView: View {
     var body: some View {
         ZStack {
             Color(red: 30/255, green: 30/255, blue: 30/255)
@@ -47,5 +47,5 @@ final class ConfirmationModel {
 }
 
 #Preview {
-    ConfirmationFeature()
+    ConfirmationView()
 }
