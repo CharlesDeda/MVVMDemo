@@ -1,12 +1,6 @@
-//
-//  MainFeature.swift
-//  MVVMDemo
-//
-//  Created by Nick Deda on 2/11/25.
-//
-
 import SwiftUI
 import Sharing
+import Dependencies
 
 @Observable
 final class MainModel {

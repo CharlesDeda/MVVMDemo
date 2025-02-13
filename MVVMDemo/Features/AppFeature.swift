@@ -17,6 +17,7 @@ import SwiftUINavigation
 final class AppModel {
     var destination: Destination? = nil
     @ObservationIgnored @Shared(.user) var user
+    @ObservationIgnored @Shared(.signup) var signup
     
     @CasePathable
     enum Destination {
@@ -25,7 +26,7 @@ final class AppModel {
     }
     
     func task() async {
-        for await _ in await AsyncStream(self.$user.publisher.values) {
+        for await _ in self.$user.publisher.values {
             self.destination = {
                 switch user {
                 case .some:
